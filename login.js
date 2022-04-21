@@ -1,5 +1,7 @@
 function Login(){
-  
+  // Successful login sets "current" field of context to the user that is logged in for
+  // deposits, withdrawals, and balances.  Unsuccessful login clears this field to -1
+  // to avoid referencing any user.
   const [status, setStatus]     = React.useState('');
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -14,6 +16,7 @@ function Login(){
       return true;
   }
 
+  // search for email and password in userlist
   function search(userlist, email, password) {
     for (let i = 0; i < userlist.length; i++) {
       if (userlist[i].email === email && userlist[i].password === password)
@@ -22,8 +25,8 @@ function Login(){
     return -1; // {email, password} not found in userlist
   }
 
-  function handleLogin(){
-    console.log(email,password, "is entered");
+  function handleLogin() {
+    console.log(email, password, "is entered");
     if (!validate(email,    'email'))    return;
     if (!validate(password, 'password')) return;
     const index = search(ctx.users, email, password);
